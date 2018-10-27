@@ -2,4 +2,6 @@
     <string name="app_name">Exercise_01</string>
     <string name="list_button">LIST</string>
     <string name="options_button">OPTIONS</string>
+    <string name="add_item_button">ADD ITEM</string>
+    <string name="tip_button">TIP</string>
 </resources>

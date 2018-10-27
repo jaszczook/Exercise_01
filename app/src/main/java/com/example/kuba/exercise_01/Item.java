@@ -1,17 +1,21 @@
 package com.example.kuba.exercise_01;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
 
     private String name;
     private int price;
+    private boolean isBought;
 
     public Item() {
 
     }
 
-    public Item (String name, int price) {
+    public Item (String name, int price, boolean isBought) {
         this.name = name;
         this.price = price;
+        this.isBought = isBought;
     }
 
     public String getName() {
@@ -28,5 +32,13 @@ public class Item {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public boolean isBought() {
+        return isBought;
+    }
+
+    public void setBought(boolean bought) {
+        isBought = bought;
     }
 }
