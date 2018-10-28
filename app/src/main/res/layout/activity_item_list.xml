@@ -6,40 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".ItemListActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/listRecycler"
-        android:layout_width="368dp"
-        android:layout_height="344dp"
+    <TextView
+        android:id="@+id/shoppingListTitleTextView"
+        android:layout_width="367dp"
+        android:layout_height="34dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/addItemButton"
+        android:text="@string/shopping_list"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/listRecycler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/addItemButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listRecycler"
+        android:layout_width="368dp"
+        android:layout_height="381dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:onClick="onClick"
-        android:text="@string/add_item_button"
-        app:layout_constraintBottom_toTopOf="@+id/tipButton"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listRecycler" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/tipButton"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
         android:layout_width="37dp"
         android:layout_height="29dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:onClick="onClick"
@@ -48,8 +47,52 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addItemButton"
-        app:layout_constraintVertical_bias="0.757" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="368dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/tipButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/mainMenuButton"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="onClick"
+            android:text="@string/main_menu_button"
+            android:textAlignment="textEnd"
+            tools:layout_editor_absoluteX="141dp"
+            tools:layout_editor_absoluteY="301dp" />
+
+        <Button
+            android:id="@+id/saveStatusButton"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="onClick"
+            android:text="@string/save_status_button"
+            tools:layout_editor_absoluteX="253dp"
+            tools:layout_editor_absoluteY="301dp" />
+
+        <Button
+            android:id="@+id/addItemButton"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="onClick"
+            android:text="@string/add_item_button"
+            tools:layout_editor_absoluteX="37dp"
+            tools:layout_editor_absoluteY="301dp" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

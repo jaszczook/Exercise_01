@@ -1,7 +1,20 @@
 <resources>
     <string name="app_name">Exercise_01</string>
-    <string name="list_button">LIST</string>
-    <string name="options_button">OPTIONS</string>
-    <string name="add_item_button">ADD ITEM</string>
+    <string name="main_menu_button">Main menu</string>
+    <string name="list_button">List</string>
+    <string name="options_button">Options</string>
+    <string name="add_item_button">Add item</string>
+    <string name="save_status_button">Save status</string>
+    <string name="apply_button">Apply</string>
+    <string name="delete_button">Delete</string>
+    <string name="cancel_button">Cancel</string>
     <string name="tip_button">TIP</string>
+    <string name="name_hint">Name</string>
+    <string name="price_hint">Price in PLN</string>
+    <string name="quantity_hint">Quantity</string>
+    <string name="shopping_list">Shopping list</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="price">Price</string>
+    <string name="quantity">Quantity</string>
 </resources>
