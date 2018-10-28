@@ -9,6 +9,7 @@
     <string name="delete_button">Delete</string>
     <string name="cancel_button">Cancel</string>
     <string name="tip_button">TIP</string>
+    <string name="tip_check_box">Show tricks</string>
     <string name="name_hint">Name</string>
     <string name="price_hint">Price in PLN</string>
     <string name="quantity_hint">Quantity</string>

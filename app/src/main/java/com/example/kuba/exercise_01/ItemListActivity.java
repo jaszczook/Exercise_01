@@ -33,9 +33,15 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
         shoppingListTitleTextView = findViewById(R.id.shoppingListTitleTextView);
 
         SharedPreferences prefs = getSharedPreferences("Exercise_01_prefs", MODE_PRIVATE);
+
         String restoredText = prefs.getString("username", null);
         if (restoredText != null) {
             shoppingListTitleTextView.setText(restoredText.concat("'s shopping list"));
+        }
+
+        boolean restoredBoolean = prefs.getBoolean("tip", true);
+        if (!restoredBoolean) {
+            findViewById(R.id.tipButton).setVisibility(View.INVISIBLE);
         }
 
         recyclerView = (RecyclerView) findViewById(R.id.listRecycler);
