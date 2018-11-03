@@ -3,6 +3,7 @@ package com.example.kuba.exercise_01;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
@@ -50,6 +51,10 @@ public class ItemDbHelper extends SQLiteOpenHelper {
         contentValues.put(ItemContract.ItemEntry.IS_BOUGHT, isBought);
         db.insert(ItemContract.ItemEntry.TABLE_NAME, null, contentValues);
         Log.d("Database Operations", "One row inserted...");
+    }
+
+    public long addItem(ContentValues contentValues, SQLiteDatabase db) {
+        return db.insert(ItemContract.ItemEntry.TABLE_NAME, null, contentValues);
     }
 
     public Cursor readItems(SQLiteDatabase db) {
@@ -110,10 +115,18 @@ public class ItemDbHelper extends SQLiteOpenHelper {
         Log.d("Database Operations", "One row updated...");
     }
 
+    public int updateItem(String selection, ContentValues contentValues, SQLiteDatabase db) {
+        return db.update(ItemContract.ItemEntry.TABLE_NAME, contentValues, selection, null);
+    }
+
     public void deleteItem(int id, SQLiteDatabase db) {
         String selection = ItemContract.ItemEntry._ID + " = " + id;
 
         db.delete(ItemContract.ItemEntry.TABLE_NAME, selection, null);
         Log.d("Database Operations", "One row deleted...");
+    }
+
+    public int deleteItem(String selection, SQLiteDatabase db) {
+        return db.delete(ItemContract.ItemEntry.TABLE_NAME, selection, null);
     }
 }

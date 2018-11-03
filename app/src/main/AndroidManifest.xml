@@ -20,6 +20,10 @@
         <activity android:name=".EditItemActivity" />
         <activity android:name=".AddItemActivity" />
         <activity android:name=".OptionsActivity"></activity>
+        <provider
+            android:authorities="com.example.kuba.exercise_01.ItemProvider"
+            android:name=".ItemProvider">
+        </provider>
     </application>
 
 </manifest>
