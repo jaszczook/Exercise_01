@@ -23,6 +23,8 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         priceEditText = findViewById(R.id.priceEditText);
         quantityEditText = findViewById(R.id.quantityEditText);
 
+        Intent intent = getIntent();
+
         int id = (int) getIntent().getSerializableExtra("id");
         prepareItemData(id);
 
