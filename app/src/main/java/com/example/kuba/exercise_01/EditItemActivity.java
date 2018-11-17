@@ -23,8 +23,18 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         priceEditText = findViewById(R.id.priceEditText);
         quantityEditText = findViewById(R.id.quantityEditText);
 
-        int id = (int) getIntent().getSerializableExtra("id");
+        int id = getIntent().getIntExtra("id", 0);
+        if (!isItemIdValid(id)) {
+            startActivity(new Intent(this, ItemListActivity.class));
+            return;
+        }
+
         prepareItemData(id);
+        if (!isItemValid()) {
+            Toast.makeText(this, "There is no such item!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, ItemListActivity.class));
+            return;
+        }
 
         nameEditText.setText(item.getName());
         priceEditText.setText(String.valueOf(item.getPrice()));
@@ -53,6 +63,14 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         startActivity(new Intent(this, ItemListActivity.class));
     }
 
+    private boolean isItemIdValid(int id) {
+        if (id <= 0) {
+            return false;
+        }
+
+        return true;
+    }
+
     private void prepareItemData(int id) {
         ItemDbHelper itemDbHelper = new ItemDbHelper(this);
         SQLiteDatabase sqLiteDatabase = itemDbHelper.getWritableDatabase();
@@ -70,6 +88,14 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         }
 
         itemDbHelper.close();
+    }
+
+    private boolean isItemValid() {
+        if (this.item == null) {
+            return false;
+        }
+
+        return true;
     }
 
     private void updateItemData(int id) {

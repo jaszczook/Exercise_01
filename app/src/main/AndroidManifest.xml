@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kuba.exercise_01">
 
+    <uses-permission android:name="com.example.kuba.permission.NOTIFY_ITEM_ADDED" />
+
+    <permission
+        android:name="com.example.kuba.permission.NOTIFY_ITEM_ADDED"
+        android:label="Add item permission" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,8 +22,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ItemListActivity" />
-        <activity android:name=".EditItemActivity" />
+        <activity android:name=".ItemListActivity">
+            <intent-filter>
+                <action android:name="com.example.kuba.app.activity.ITEM_LIST_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".EditItemActivity">
+            <intent-filter>
+                <action android:name="com.example.kuba.app.activity.EDIT_ITEM_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".AddItemActivity" />
         <activity android:name=".OptionsActivity"></activity>
         <provider

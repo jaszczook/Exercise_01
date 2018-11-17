@@ -1,6 +1,8 @@
 package com.example.kuba.exercise_01;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
 
     private int id;
     private String name;
@@ -8,9 +10,7 @@ public class Item {
     private int quantity;
     private boolean isBought;
 
-    public Item() {
-
-    }
+    public Item() { }
 
     public Item (int id, String name, int price, int quantity, boolean isBought) {
         this.id = id;
