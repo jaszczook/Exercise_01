@@ -13,7 +13,7 @@ import static java.lang.Math.toIntExact;
 
 public class AddItemActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String ITEM_ADDED_ACTION = "com.example.kuba.ITEM_ADDED";
+    public static final String ACTION_ITEM_ADDED = "com.example.kuba.intent.action.ITEM_ADDED";
     private EditText nameEditText, priceEditText, quantityEditText;
 
     @Override
@@ -62,10 +62,10 @@ public class AddItemActivity extends AppCompatActivity implements View.OnClickLi
         SharedPreferences prefs = getSharedPreferences("Exercise_01_prefs", MODE_PRIVATE);
         String restoredText = prefs.getString("username", null);
 
-        Intent intent = new Intent(ITEM_ADDED_ACTION);
+        Intent intent = new Intent(ACTION_ITEM_ADDED);
         intent.putExtra("id", item.getId());
         intent.putExtra("name", item.getName());
-        intent.putExtra("owner", restoredText);
-        sendBroadcast(intent, Manifest.permission.ADD_ITEM);
+        intent.putExtra("username", restoredText);
+        sendBroadcast(intent, Manifest.permission.NOTIFY_ITEM_ADDED);
     }
 }

@@ -10,9 +10,7 @@ public class Item implements Serializable {
     private int quantity;
     private boolean isBought;
 
-    public Item() {
-
-    }
+    public Item() { }
 
     public Item (int id, String name, int price, int quantity, boolean isBought) {
         this.id = id;

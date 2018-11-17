@@ -2,14 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kuba.exercise_01">
 
-    <uses-permission android:name="com.example.kuba_permissions.ADD_ITEM" />
+    <uses-permission android:name="com.example.kuba.permission.NOTIFY_ITEM_ADDED" />
 
-    <permission-group
-        android:name="com.example.kuba_permissions"
-        android:label="Kuba's permissions group" />
     <permission
-        android:name="com.example.kuba_permissions.ADD_ITEM"
-        android:permissionGroup="com.examples.kuba_permissions"
+        android:name="com.example.kuba.permission.NOTIFY_ITEM_ADDED"
         android:label="Add item permission" />
 
     <application
@@ -28,13 +24,13 @@
         </activity>
         <activity android:name=".ItemListActivity">
             <intent-filter>
-                <action android:name="com.hmkcode.android.another.app.ANOTHER_ACTIVITY" />
+                <action android:name="com.example.kuba.app.activity.ITEM_LIST_ACTIVITY" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".EditItemActivity">
             <intent-filter>
-                <action android:name="com.hmkcode.android.another.app.AND_ANOTHER_ACTIVITY" />
+                <action android:name="com.example.kuba.app.activity.EDIT_ITEM_ACTIVITY" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
