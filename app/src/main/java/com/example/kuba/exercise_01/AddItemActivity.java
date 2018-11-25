@@ -2,14 +2,14 @@ package com.example.kuba.exercise_01;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import static java.lang.Math.toIntExact;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AddItemActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,12 +50,16 @@ public class AddItemActivity extends AppCompatActivity implements View.OnClickLi
         Integer price = Integer.parseInt(priceEditText.getText().toString());
         Integer quantity = Integer.parseInt(quantityEditText.getText().toString());
 
-        ItemDbHelper itemDbHelper = new ItemDbHelper(this);
-        SQLiteDatabase sqLiteDatabase = itemDbHelper.getWritableDatabase();
-        long id = itemDbHelper.addItem(name, price, quantity, false, sqLiteDatabase);
-        itemDbHelper.close();
+        Item item = new Item(name, price, quantity, false);
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("items");
+
+        String id = databaseReference.push().getKey();
+
+        databaseReference.child(id).setValue(item);
+
         Toast.makeText(this, "Item inserted", Toast.LENGTH_SHORT).show();
-        return new Item(toIntExact(id), name, price, quantity, false);
+        return new Item(name, price, quantity, false);
     }
 
     private void broadcastItemAddition(View view, Item item) {
@@ -63,7 +67,6 @@ public class AddItemActivity extends AppCompatActivity implements View.OnClickLi
         String restoredText = prefs.getString("username", null);
 
         Intent intent = new Intent(ACTION_ITEM_ADDED);
-        intent.putExtra("id", item.getId());
         intent.putExtra("name", item.getName());
         intent.putExtra("username", restoredText);
         sendBroadcast(intent, Manifest.permission.NOTIFY_ITEM_ADDED);

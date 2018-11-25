@@ -18,4 +18,8 @@
     <string name="name">Name</string>
     <string name="price">Price</string>
     <string name="quantity">Quantity</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="login_hint">Login</string>
+    <string name="password_hint">Password</string>
 </resources>

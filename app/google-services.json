@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "888687450809",
+    "firebase_url": "https://pjatk-smb.firebaseio.com",
+    "project_id": "pjatk-smb",
+    "storage_bucket": "pjatk-smb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888687450809:android:3baf141a2d6cf7dc",
+        "android_client_info": {
+          "package_name": "com.example.kuba.exercise_01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "888687450809-jkimt398cg32mfrbim9latrvnj3unnqq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjijURSWfiAqH0_oiYdgx3C3LCVWNayRE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

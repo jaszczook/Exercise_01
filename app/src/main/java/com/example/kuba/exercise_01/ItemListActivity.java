@@ -2,8 +2,6 @@ package com.example.kuba.exercise_01;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -15,12 +13,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ItemListActivity extends AppCompatActivity implements View.OnClickListener {
 
     private List<Item> itemList = new ArrayList<>();
+    private HashMap<String, Item> itemHashMap = new HashMap<>();
     private TextView shoppingListTitleTextView;
     private RecyclerView recyclerView;
     private ItemListAdapter itemListAdapter;
@@ -44,7 +51,7 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
             findViewById(R.id.tipButton).setVisibility(View.INVISIBLE);
         }
 
-        recyclerView = (RecyclerView) findViewById(R.id.listRecycler);
+        recyclerView = findViewById(R.id.listRecycler);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -68,9 +75,15 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onLongClick(View view, int position) {
-                Item item = itemList.get(position);
                 Intent intent = new Intent(view.getContext(), EditItemActivity.class);
-                intent.putExtra("id", item.getId());
+
+                for (Map.Entry<String, Item> entry : itemHashMap.entrySet()) {
+                    if (entry.getValue() == itemList.get(position)) {
+                        intent.putExtra("id", entry.getKey());
+                        break;
+                    }
+                }
+
                 startActivity(intent);
             }
         }));
@@ -108,41 +121,39 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void prepareItemsData() {
-        ItemDbHelper itemDbHelper = new ItemDbHelper(this);
-        SQLiteDatabase sqLiteDatabase = itemDbHelper.getWritableDatabase();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("items");
 
-        Cursor cursor = itemDbHelper.readItems(sqLiteDatabase);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                itemHashMap.clear();
+                itemList.clear();
 
-        while (cursor.moveToNext()) {
-            Integer id = cursor.getInt(cursor.getColumnIndex(ItemContract.ItemEntry._ID));
-            String name = cursor.getString(cursor.getColumnIndex(ItemContract.ItemEntry.NAME));
-            Integer price = cursor.getInt(cursor.getColumnIndex(ItemContract.ItemEntry.PRICE));
-            Integer quantity = cursor.getInt(cursor.getColumnIndex(ItemContract.ItemEntry.QUANTITY));
-            boolean isBought = cursor.getInt(cursor.getColumnIndex(ItemContract.ItemEntry.IS_BOUGHT)) == 1;
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String id = postSnapshot.getKey();
+                    Item item = postSnapshot.getValue(Item.class);
+                    itemHashMap.put(id, item);
+                }
 
-            itemList.add(new Item(id, name, price, quantity, isBought));
-        }
+                itemList.addAll(itemHashMap.values());
 
-        itemListAdapter.notifyDataSetChanged();
+                itemListAdapter.notifyDataSetChanged();
+            }
 
-        itemDbHelper.close();
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "Getting items failed", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void saveStatus() {
-        ItemDbHelper itemDbHelper = new ItemDbHelper(this);
-        SQLiteDatabase sqLiteDatabase = itemDbHelper.getWritableDatabase();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("items");
 
-        for (Item item : itemList) {
-            Integer id = item.getId();
-            String name = item.getName();
-            Integer price = item.getPrice();
-            Integer quantity = item.getQuantity();
-            boolean isBought = item.isBought();
-
-            itemDbHelper.updateItem(id, name, price, quantity, isBought, sqLiteDatabase);
+        for (Map.Entry<String, Item> entry : itemHashMap.entrySet()) {
+            databaseReference.child(entry.getKey()).setValue(entry.getValue());
         }
 
-        itemDbHelper.close();
         Toast.makeText(this, "Status saved", Toast.LENGTH_SHORT).show();
     }
 }

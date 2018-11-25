@@ -1,17 +1,22 @@
 package com.example.kuba.exercise_01;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class EditItemActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText nameEditText, priceEditText, quantityEditText;
+    private String id;
     private Item item;
 
     @Override
@@ -23,33 +28,20 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         priceEditText = findViewById(R.id.priceEditText);
         quantityEditText = findViewById(R.id.quantityEditText);
 
-        int id = getIntent().getIntExtra("id", 0);
-        if (!isItemIdValid(id)) {
-            startActivity(new Intent(this, ItemListActivity.class));
-            return;
-        }
+        id = getIntent().getStringExtra("id");
 
         prepareItemData(id);
-        if (!isItemValid()) {
-            Toast.makeText(this, "There is no such item!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, ItemListActivity.class));
-            return;
-        }
-
-        nameEditText.setText(item.getName());
-        priceEditText.setText(String.valueOf(item.getPrice()));
-        quantityEditText.setText(String.valueOf(item.getQuantity()));
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.applyButton:
-                updateItemData(item.getId());
+                updateItemData();
                 startActivity(new Intent(this, ItemListActivity.class));
                 break;
             case R.id.deleteButton:
-                deleteItemData(item.getId());
+                deleteItemData();
                 startActivity(new Intent(this, ItemListActivity.class));
                 break;
             case R.id.cancelButton:
@@ -63,59 +55,52 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         startActivity(new Intent(this, ItemListActivity.class));
     }
 
-    private boolean isItemIdValid(int id) {
-        if (id <= 0) {
-            return false;
-        }
+    private void prepareItemData(String id) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("items").child(id);
 
-        return true;
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                item = dataSnapshot.getValue(Item.class);
+                if (item != null) {
+                    updateControls();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "Getting item failed", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
-    private void prepareItemData(int id) {
-        ItemDbHelper itemDbHelper = new ItemDbHelper(this);
-        SQLiteDatabase sqLiteDatabase = itemDbHelper.getWritableDatabase();
+    private void updateItemData() {
+        updateItem();
 
-        Cursor cursor = itemDbHelper.readItem(id, sqLiteDatabase);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("items");
 
-        if(cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            String name = cursor.getString(cursor.getColumnIndex(ItemContract.ItemEntry.NAME));
-            Integer price = cursor.getInt(cursor.getColumnIndex(ItemContract.ItemEntry.PRICE));
-            Integer quantity = cursor.getInt(cursor.getColumnIndex(ItemContract.ItemEntry.QUANTITY));
-            boolean isBought = cursor.getInt(cursor.getColumnIndex(ItemContract.ItemEntry.IS_BOUGHT)) == 1;
+        databaseReference.child(id).setValue(item);
 
-            item = new Item(id, name, price, quantity, isBought);
-        }
-
-        itemDbHelper.close();
-    }
-
-    private boolean isItemValid() {
-        if (this.item == null) {
-            return false;
-        }
-
-        return true;
-    }
-
-    private void updateItemData(int id) {
-        String name = nameEditText.getText().toString();
-        Integer price = Integer.parseInt(priceEditText.getText().toString());
-        Integer quantity = Integer.parseInt(quantityEditText.getText().toString());
-        boolean isBought = item.isBought();
-
-        ItemDbHelper itemDbHelper = new ItemDbHelper(this);
-        SQLiteDatabase sqLiteDatabase = itemDbHelper.getWritableDatabase();
-        itemDbHelper.updateItem(id, name, price, quantity, isBought, sqLiteDatabase);
-        itemDbHelper.close();
         Toast.makeText(this, "Item updated", Toast.LENGTH_SHORT).show();
     }
 
-    private void deleteItemData(int id) {
-        ItemDbHelper itemDbHelper = new ItemDbHelper(this);
-        SQLiteDatabase sqLiteDatabase = itemDbHelper.getWritableDatabase();
-        itemDbHelper.deleteItem(id, sqLiteDatabase);
-        itemDbHelper.close();
+    private void deleteItemData() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("items");
+
+        databaseReference.child(id).removeValue();
+
         Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show();
+    }
+
+    private void updateControls() {
+        nameEditText.setText(item.getName());
+        priceEditText.setText(String.valueOf(item.getPrice()));
+        quantityEditText.setText(String.valueOf(item.getQuantity()));
+    }
+
+    private void updateItem() {
+        item.setName(nameEditText.getText().toString());
+        item.setPrice(Integer.parseInt(priceEditText.getText().toString()));
+        item.setQuantity(Integer.parseInt(quantityEditText.getText().toString()));
     }
 }
