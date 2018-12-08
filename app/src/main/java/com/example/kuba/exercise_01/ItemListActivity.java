@@ -51,7 +51,7 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
             findViewById(R.id.tipButton).setVisibility(View.INVISIBLE);
         }
 
-        recyclerView = findViewById(R.id.listRecycler);
+        recyclerView = findViewById(R.id.itemListRecycler);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -68,7 +68,7 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
         itemListAdapter = new ItemListAdapter(itemList);
         recyclerView.setAdapter(itemListAdapter);
 
-        recyclerView.addOnItemTouchListener(new ItemListClickListener(getApplicationContext(), recyclerView, new ItemListClickListener.ClickListener() {
+        recyclerView.addOnItemTouchListener(new ListClickListener(getApplicationContext(), recyclerView, new ListClickListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
             }

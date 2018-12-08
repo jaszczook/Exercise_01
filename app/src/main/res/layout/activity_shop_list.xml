@@ -4,27 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ItemListActivity">
+    tools:context=".ShopListActivity">
 
     <TextView
-        android:id="@+id/shoppingListTitleTextView"
+        android:id="@+id/shopListTitleTextView"
         android:layout_width="367dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/shopping_list"
+        android:text="@string/shop_list"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/itemListRecycler"
+        app:layout_constraintBottom_toTopOf="@+id/shopListRecycler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/itemListRecycler"
+        android:id="@+id/shopListRecycler"
         android:layout_width="368dp"
         android:layout_height="381dp"
         android:layout_marginStart="8dp"
@@ -33,33 +33,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/tipButton"
-        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
-        android:layout_width="37dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:onClick="onClick"
-        android:text="@string/tip_button"
-        android:textSize="8sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="368dp"
         android:layout_height="72dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="52dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/tipButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.94"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
@@ -74,22 +59,22 @@
             tools:layout_editor_absoluteY="301dp" />
 
         <Button
-            android:id="@+id/saveStatusButton"
+            android:id="@+id/mapsButton"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:onClick="onClick"
-            android:text="@string/save_status_button"
+            android:text="@string/map_button"
             tools:layout_editor_absoluteX="253dp"
             tools:layout_editor_absoluteY="301dp" />
 
         <Button
-            android:id="@+id/addItemButton"
+            android:id="@+id/addShopButton"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:onClick="onClick"
-            android:text="@string/add_item_button"
+            android:text="@string/add_shop_button"
             tools:layout_editor_absoluteX="37dp"
             tools:layout_editor_absoluteY="301dp" />
 
