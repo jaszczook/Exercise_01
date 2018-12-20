@@ -104,7 +104,7 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
                 saveStatus();
                 break;
             case R.id.tipButton:
-                Toast toast = Toast.makeText(this, "Tap on an item and hold for a while to edit :)", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(this, "Tap on an item and hold for a while to edit :)", Toast.LENGTH_SHORT);
                 LinearLayout layout = (LinearLayout) toast.getView();
                 if (layout.getChildCount() > 0) {
                     TextView tv = (TextView) layout.getChildAt(0);
@@ -142,7 +142,7 @@ public class ItemListActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(getApplicationContext(), "Getting items failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Getting items failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

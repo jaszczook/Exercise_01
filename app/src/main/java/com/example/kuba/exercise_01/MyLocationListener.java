@@ -1,9 +1,7 @@
 package com.example.kuba.exercise_01;
 
-import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 
 public class MyLocationListener implements LocationListener {
@@ -11,7 +9,6 @@ public class MyLocationListener implements LocationListener {
     private static final int TWO_MINUTES = 1000 * 60 * 2;
 
     private Location currentBestLocation = null;
-    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
     @Override
     public void onLocationChanged(Location location) {
@@ -35,31 +32,6 @@ public class MyLocationListener implements LocationListener {
     }
 
     /**
-     * @return the last know best location
-     */
-    private Location getLastBestLocation() {
-        Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        Location locationNet = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-        long GPSLocationTime = 0;
-        if (null != locationGPS) {
-            GPSLocationTime = locationGPS.getTime();
-        }
-
-        long NetLocationTime = 0;
-
-        if (null != locationNet) {
-            NetLocationTime = locationNet.getTime();
-        }
-
-        if (0 < GPSLocationTime - NetLocationTime) {
-            return locationGPS;
-        } else {
-            return locationNet;
-        }
-    }
-
-    /**
      * This method modify the last know good location according to the arguments.
      *
      * @param location The possible new location.
@@ -69,8 +41,6 @@ public class MyLocationListener implements LocationListener {
             currentBestLocation = location;
         }
     }
-
-....
 
     /**
      * Determines whether one location reading is better than the current location fix

@@ -1,7 +1,12 @@
 package com.example.kuba.exercise_01;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -10,10 +15,21 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    LocationManager locationManager;
+    LocationListener locationListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationListener = new MyLocationListener();
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, locationListener);
     }
 
     @Override
@@ -36,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.finishAffinity();
     }
 
-    void helper() {
+    void shopHelper() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("shops");
 
         String id = databaseReference.push().getKey();

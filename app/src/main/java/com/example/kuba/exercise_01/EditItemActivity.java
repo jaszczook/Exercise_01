@@ -69,7 +69,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(getApplicationContext(), "Getting item failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Getting item failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

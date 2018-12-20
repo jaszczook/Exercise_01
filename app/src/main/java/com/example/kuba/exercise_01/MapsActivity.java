@@ -71,13 +71,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 shopList.addAll(shopHashMap.values());
 
                 updateGoogleMap();
-
-                // TODO: notify future shopListAdapter
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(getApplicationContext(), "Getting shops failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Getting shops failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

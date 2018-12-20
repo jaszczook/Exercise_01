@@ -2,6 +2,7 @@ package com.example.kuba.exercise_01;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.location.GeofencingClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -16,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,15 +30,17 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
 
     private List<Shop> shopList = new ArrayList<>();
     private HashMap<String, Shop> shopHashMap = new HashMap<>();
-    private RecyclerView recyclerView;
     private ShopListAdapter shopListAdapter;
+    private GeofencingClient geofencingClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_list);
 
-        recyclerView = findViewById(R.id.shopListRecycler);
+        geofencingClient = LocationServices.getGeofencingClient(this);
+
+        RecyclerView recyclerView = findViewById(R.id.shopListRecycler);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -65,7 +73,9 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
                     }
                 }
 
-                deleteShopData(id);
+                if (id != null) {
+                    deleteShopData(id);
+                }
             }
         }));
 
@@ -109,7 +119,7 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(getApplicationContext(), "Getting shops failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Getting shops failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -121,6 +131,24 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
             databaseReference.child(id).removeValue();
 
             Toast.makeText(this, "Shop deleted", Toast.LENGTH_SHORT).show();
+
+            removeGeofence(id);
         }
+    }
+
+    private void removeGeofence(String id) {
+        geofencingClient.removeGeofences(Arrays.asList(id))
+                .addOnSuccessListener(this, new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Geofence removed", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Failed to remove geofence", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
