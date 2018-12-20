@@ -108,10 +108,10 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
                 String triggeringGeofencesIdsString = TextUtils.join(", ",  triggeringGeofencesNamesList);
 
-                // if (!triggeringGeofencesIdsString.isEmpty()) {
+                if (!triggeringGeofencesIdsString.isEmpty()) {
                     // Send notification and log the transition details.
                     sendNotification("You have " + geofenceTransitionString + ": " + triggeringGeofencesIdsString);
-                // }
+                }
             }
 
             @Override

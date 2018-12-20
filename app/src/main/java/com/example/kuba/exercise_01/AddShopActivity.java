@@ -29,7 +29,6 @@ import static com.example.kuba.exercise_01.LoginActivity.GEOFENCE_EXPIRATION_IN_
 public class AddShopActivity extends AppCompatActivity implements View.OnClickListener {
 
     LocationManager locationManager;
-    LocationListener locationListener;
     private EditText nameEditText, descriptionEditText, radiusEditText;
     private GeofencingClient geofencingClient;
     private Geofence geofence;
@@ -45,16 +44,10 @@ public class AddShopActivity extends AppCompatActivity implements View.OnClickLi
         radiusEditText = findViewById(R.id.radiusEditText);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        /*locationListener = new MyLocationListener();*/
 
         geofencingClient = LocationServices.getGeofencingClient(this);
         geofence = null;
         pendingIntent = null;
-
-/*        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);*/
     }
 
     @Override
