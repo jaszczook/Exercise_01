@@ -8,6 +8,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -88,11 +89,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .position(new LatLng(shop.getLatitude(), shop.getLongitude()))
                     .title(shop.getName())
                     .snippet(shop.getDescription()));
+
+            googleMap.addCircle(new CircleOptions()
+                    .center(new LatLng(shop.getLatitude(), shop.getLongitude()))
+                    .radius(shop.getRadius()));
         }
 
         if (!shopList.isEmpty()) {
             Shop firstShop = shopList.get(0);
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(firstShop.getLatitude(), firstShop.getLongitude())));
         }
+
+        googleMap.setMyLocationEnabled(true);
     }
 }
