@@ -75,6 +75,7 @@
         <receiver android:name=".NewAppWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.example.kuba.intent.action.WIDGET_IMAGE_BUTTON" />
             </intent-filter>
 
             <meta-data

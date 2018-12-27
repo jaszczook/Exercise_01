@@ -3,30 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#09C"
+    android:background="#FFFFFF"
     android:padding="@dimen/widget_margin">
 
-    <Button
-        android:id="@+id/pjwstkButton"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="211dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp"
-        android:text="@string/pjwstk_button"
-        android:textSize="36sp" />
-
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logoImageView"
         android:layout_width="match_parent"
         android:layout_height="210dp"
-        android:layout_alignTop="@+id/internetButton"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
@@ -35,5 +18,33 @@
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="301dp"
         android:background="@color/common_google_signin_btn_text_dark_pressed"
-        android:visibility="visible" />
+        android:visibility="visible"
+        app:srcCompat="@drawable/pjwstk_logo" />
+
+    <Button
+        android:id="@+id/websiteButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="249dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="211dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="51dp"
+        android:text="@string/website_button"
+        android:textSize="36sp" />
+
+    <Button
+        android:id="@+id/logoButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="462dp"
+        android:text="@string/logo_button" />
 </RelativeLayout>

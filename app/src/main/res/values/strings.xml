@@ -34,5 +34,6 @@
     <string name="unknown_geofence_transition">UNKNOWN GEOFENCE TRANSITION</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
-    <string name="pjwstk_button">PJWSTK</string>
+    <string name="website_button">WEBSITE</string>
+    <string name="logo_button">Change the logo</string>
 </resources>
