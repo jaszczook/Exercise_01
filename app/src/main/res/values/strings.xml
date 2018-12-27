@@ -2,6 +2,7 @@
     <string name="app_name">Exercise_01</string>
     <string name="main_menu_button">Main menu</string>
     <string name="list_button">List</string>
+    <string name="shops_button">Shops</string>
     <string name="options_button">Options</string>
     <string name="add_item_button">Add item</string>
     <string name="save_status_button">Save status</string>
@@ -9,11 +10,16 @@
     <string name="delete_button">Delete</string>
     <string name="cancel_button">Cancel</string>
     <string name="tip_button">TIP</string>
+    <string name="add_shop_button">Add shop</string>
+    <string name="map_button">Map</string>
     <string name="tip_check_box">Show tricks</string>
     <string name="name_hint">Name</string>
     <string name="price_hint">Price in PLN</string>
     <string name="quantity_hint">Quantity</string>
+    <string name="description_hint">Description</string>
+    <string name="radius_hint">Radius</string>
     <string name="shopping_list">Shopping list</string>
+    <string name="shop_list">Shop list</string>
     <string name="username">Username</string>
     <string name="name">Name</string>
     <string name="price">Price</string>
@@ -22,4 +28,8 @@
     <string name="register">Register</string>
     <string name="login_hint">Login</string>
     <string name="password_hint">Password</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="geofence_transition_entered">entered</string>
+    <string name="geofence_transition_exited">exited</string>
+    <string name="unknown_geofence_transition">UNKNOWN GEOFENCE TRANSITION</string>
 </resources>

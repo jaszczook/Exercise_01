@@ -1,23 +1,21 @@
 package com.example.kuba.exercise_01;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemListViewHolder> {
 
-    private List<Item> itemsList;
+    private List<Item> itemList;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ItemListAdapter(List<Item> itemsList) {
-        this.itemsList = itemsList;
+    public ItemListAdapter(List<Item> itemList) {
+        this.itemList = itemList;
     }
 
     // Create new views (invoked by the layout manager)
@@ -35,7 +33,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
     public void onBindViewHolder(final ItemListViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        final Item item = itemsList.get(position);
+        final Item item = itemList.get(position);
         holder.name.setText(item.getName());
         holder.price.setText(String.valueOf(item.getPrice()).concat(" PLN"));
         holder.quantity.setText(String.valueOf(Integer.toString(item.getQuantity())));
@@ -58,7 +56,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return itemsList.size();
+        return itemList.size();
     }
 
     // Provide a reference to the views for each data item
