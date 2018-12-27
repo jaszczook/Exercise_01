@@ -32,4 +32,7 @@
     <string name="geofence_transition_entered">entered</string>
     <string name="geofence_transition_exited">exited</string>
     <string name="unknown_geofence_transition">UNKNOWN GEOFENCE TRANSITION</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="pjwstk_button">PJWSTK</string>
 </resources>
